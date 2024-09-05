@@ -42,7 +42,7 @@ const UsersList: React.FC = () => {
 
 	return (
 		<section className="pt-16 mx-auto max-w-[1200px] tracking-wider font-medium">
-			<div className="mb-4 flex justify-between items-center text-slate-400">
+			<div className="mb-4 flex justify-between items-center text-slate-700">
 				<div className="flex gap-x-4">
 					{["name", "username", "email", "phone"].map((field) => (
 						<div className="relative" key={field}>
@@ -54,21 +54,21 @@ const UsersList: React.FC = () => {
 								placeholder={`Search by ${field}`}
 								value={filters[field as keyof typeof filters]}
 								onChange={handleFilterChange}
-								className="w-[220px] pl-10 px-3 py-2 bg-slate-800 rounded-[4px] outline-none placeholder:text-slate-400"
+								className="w-[210px] pl-10 px-3 py-2 bg-slate-300 rounded-[4px] outline-none placeholder:text-slate-700"
 							/>
 						</div>
 					))}
 				</div>
 
-				<button className="bg-slate-800 flex items-center px-3 py-2 rounded-[4px] hover:scale-105 active:scale-100 transition-all">
+				<button className="bg-slate-300 flex items-center px-3 py-2 rounded-[4px] hover:scale-105 active:scale-100 transition-all">
 					<MdFormatListBulletedAdd className="mr-2" />
 					Add New User
 				</button>
 			</div>
 
 			<main className="rounded-[4px] h-[70vh] overflow-y-scroll no-scrollbar">
-				<table className="w-full text-sm text-left rtl:text-right">
-					<thead className="sticky top-0 text-md text-slate-400 uppercase bg-slate-800">
+				<table className="relative w-full text-sm text-left rtl:text-right">
+					<thead className="sticky top-0 text-md text-slate-300 uppercase bg-slate-800">
 						<tr>
 							<th className="p-5">Name</th>
 							<th className="p-5">Username</th>
@@ -96,8 +96,8 @@ const UsersList: React.FC = () => {
 								</tr>
 							))
 						) : (
-							<div className="h-[20vh] bg-slate-300 w-[1200px] flex justify-center items-center text-lg rounded-b-[4px]">
-								<RiErrorWarningFill className="size-6 mr-2 text-amber-600" />
+							<div className="absolute left-0 right-0 h-[30vh] bg-slate-300 rounded-b-[4px] flex justify-center items-center text-lg text-slate-700">
+								<RiErrorWarningFill className="size-6 mr-2 text-amber-500" />
 								<span>No such user data found</span>
 							</div>
 						)}
