@@ -1,17 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { UserDataType } from "../../lib/data";
-
-interface UsersState {
-	users: UserDataType[];
-	loading: boolean;
-	error: string | null;
-	filters: {
-		name: string;
-		username: string;
-		email: string;
-		phone: string;
-	};
-}
+import { UserDataType, UsersState } from "../../lib/data";
 
 const initialState: UsersState = {
 	users: [],

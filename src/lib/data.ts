@@ -6,8 +6,14 @@ export interface UserDataType {
 	phone: string;
 }
 
-export interface UserState {
-	loading: boolean;
+export interface UsersState {
 	users: UserDataType[];
+	loading: boolean;
 	error: string | null;
+	filters: {
+		name: string;
+		username: string;
+		email: string;
+		phone: string;
+	};
 }
