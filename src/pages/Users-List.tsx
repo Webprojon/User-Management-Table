@@ -5,13 +5,20 @@ import { FaEdit } from "react-icons/fa";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FadeLoader } from "react-spinners";
-import { UserDataType } from "../lib/data";
-import { fetchUsers } from "../redux/actions/Actions";
 import { AppDispatch, RootState } from "../redux/store/Store";
+import { fetchUsers } from "../redux/slices/User-Slices";
+
+interface UserDataType {
+	id: number;
+	name: string;
+	username: string;
+	email: string;
+	phone: number;
+}
 
 const UsersList: React.FC = () => {
 	const dispatch: AppDispatch = useDispatch();
-	const { loading, users } = useSelector((state: RootState) => state);
+	const { loading, users } = useSelector((state: RootState) => state.users);
 
 	useEffect(() => {
 		dispatch(fetchUsers());
@@ -55,9 +62,12 @@ const UsersList: React.FC = () => {
 						</tr>
 					</thead>
 
-					{users.map((user: UserDataType) => (
-						<tbody key={user.id}>
-							<tr className="border-b bg-slate-300 text-slate-700 border-slate-500">
+					<tbody>
+						{users.map((user: UserDataType) => (
+							<tr
+								key={user.id}
+								className="border-b bg-slate-300 text-slate-700 border-slate-500"
+							>
 								<td className="px-5 py-4">{user.name}</td>
 								<td className="px-5 py-4">{user.username}</td>
 								<td className="px-5 py-4">{user.email}</td>
@@ -67,8 +77,8 @@ const UsersList: React.FC = () => {
 									<RiDeleteBin5Fill className="size-7 text-red-500 hover:scale-105" />
 								</td>
 							</tr>
-						</tbody>
-					))}
+						))}
+					</tbody>
 				</table>
 			</main>
 		</section>
