@@ -68,7 +68,7 @@ const UsersList: React.FC = () => {
 				</button>
 			</div>
 
-			<main className="h-[57vh] md:h-[73vh] overflow-y-auto no-scrollbar">
+			<main className="h-[59vh] md:h-[73vh] overflow-y-auto no-scrollbar">
 				<table className="shadow-xl rounded-[4px] relative w-full text-sm text-left rtl:text-right">
 					<thead className="sticky top-0 text-sm text-slate-300 uppercase bg-slate-800 sm:text-md">
 						<tr>
