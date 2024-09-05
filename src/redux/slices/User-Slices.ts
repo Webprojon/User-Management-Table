@@ -5,12 +5,24 @@ interface UsersState {
 	users: UserDataType[];
 	loading: boolean;
 	error: string | null;
+	filters: {
+		name: string;
+		username: string;
+		email: string;
+		phone: string;
+	};
 }
 
 const initialState: UsersState = {
 	users: [],
 	loading: false,
 	error: null,
+	filters: {
+		name: "",
+		username: "",
+		email: "",
+		phone: "",
+	},
 };
 
 export const fetchUsers = createAsyncThunk<UserDataType[]>(
@@ -27,7 +39,11 @@ export const fetchUsers = createAsyncThunk<UserDataType[]>(
 const usersSlice = createSlice({
 	name: "users",
 	initialState,
-	reducers: {},
+	reducers: {
+		setFilter: (state, action) => {
+			state.filters = { ...state.filters, ...action.payload };
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchUsers.pending, (state) => {
@@ -44,5 +60,7 @@ const usersSlice = createSlice({
 			});
 	},
 });
+
+export const { setFilter } = usersSlice.actions;
 
 export default usersSlice.reducer;
