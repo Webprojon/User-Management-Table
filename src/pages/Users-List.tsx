@@ -43,7 +43,7 @@ const UsersList: React.FC = () => {
 	}
 
 	return (
-		<section className="space-y-6 mx-auto tracking-wider font-medium px-2 xs:max-w-[620px] sm:max-w-[820px] md:max-w-[1000px] lg:max-w-[1200px]">
+		<section className="space-y-4 lg:space-y-6 mx-auto tracking-wider font-medium px-2 xs:max-w-[620px] sm:max-w-[820px] md:max-w-[1000px] lg:max-w-[1200px]">
 			<div className="flex justify-between items-center text-slate-700">
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 					{["name", "username", "email", "phone"].map((field) => (
@@ -68,7 +68,7 @@ const UsersList: React.FC = () => {
 				</button>
 			</div>
 
-			<main className="h-[73vh] overflow-y-auto no-scrollbar">
+			<main className="h-[57vh] md:h-[73vh] overflow-y-auto no-scrollbar">
 				<table className="shadow-xl rounded-[4px] relative w-full text-sm text-left rtl:text-right">
 					<thead className="sticky top-0 text-sm text-slate-300 uppercase bg-slate-800 sm:text-md">
 						<tr>
@@ -79,6 +79,7 @@ const UsersList: React.FC = () => {
 							<th className="p-5 hidden lg:block">Actions</th>
 						</tr>
 					</thead>
+
 					<tbody>
 						{filteredUsers.length > 0 ? (
 							filteredUsers.map((user: UserDataType) => (
