@@ -1,59 +1,39 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FadeLoader } from "react-spinners";
+import { UserDataType } from "../lib/data";
+import { fetchUsers } from "../redux/actions/Actions";
+import { AppDispatch, RootState } from "../redux/store/Store";
 
-interface UserDataType {
-	id: number;
-	name: string;
-	username: string;
-	email: string;
-	phone: number;
-}
-
-export default function UsersList() {
-	const [loader, setLoader] = useState<boolean>(true);
-	const [userData, setUserData] = useState<UserDataType[]>([]);
-
-	const fetchUserData = async () => {
-		try {
-			const response = await fetch(
-				`https://jsonplaceholder.typicode.com/users`,
-			);
-			if (!response.ok) {
-				throw new Error("an error fetching user data");
-			}
-			const data = await response.json();
-			setUserData(data);
-			setTimeout(() => {
-				setLoader(false);
-			}, 700);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+const UsersList: React.FC = () => {
+	const dispatch: AppDispatch = useDispatch();
+	const { loading, users } = useSelector((state: RootState) => state);
 
 	useEffect(() => {
-		fetchUserData();
-	}, []);
+		dispatch(fetchUsers());
+	}, [dispatch]);
+
+	if (loading) {
+		return (
+			<div className="flex justify-center items-center h-full">
+				<FadeLoader color="#ccc" loading={loading} />
+			</div>
+		);
+	}
 
 	return (
 		<section className="pt-16 mx-auto max-w-[1200px] tracking-wider font-medium">
-			{loader && (
-				<div className="flex justify-center items-center h-full">
-					<FadeLoader color="#ccc" loading={loader} />
-				</div>
-			)}
-
 			<div className="mb-4 flex justify-between items-center text-slate-400">
 				<div className="relative">
 					<BsSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
 					<input
 						type="text"
 						autoComplete="off"
-						placeholder="Serach here"
+						placeholder="Search here"
 						className="pl-10 px-3 py-2 bg-slate-800 rounded-[4px] outline-none placeholder:text-slate-400"
 					/>
 				</div>
@@ -74,16 +54,17 @@ export default function UsersList() {
 							<th className="p-5">Actions</th>
 						</tr>
 					</thead>
-					{userData.map((user) => (
+
+					{users.map((user: UserDataType) => (
 						<tbody key={user.id}>
 							<tr className="border-b bg-slate-300 text-slate-700 border-slate-500">
 								<td className="px-5 py-4">{user.name}</td>
 								<td className="px-5 py-4">{user.username}</td>
 								<td className="px-5 py-4">{user.email}</td>
 								<td className="px-5 py-4">{user.phone}</td>
-								<td className="mt-3 ml-4 flex items-center gap-x-5 cursor-pointer">
-									<FaEdit className="size-7 text-sky-600" />
-									<RiDeleteBin5Fill className="size-7 text-red-500" />
+								<td className="mt-3 ml-4 flex items-center gap-x-5 cursor-pointer transition-all">
+									<FaEdit className="size-7 text-sky-600 hover:scale-105" />
+									<RiDeleteBin5Fill className="size-7 text-red-500 hover:scale-105" />
 								</td>
 							</tr>
 						</tbody>
@@ -92,4 +73,6 @@ export default function UsersList() {
 			</main>
 		</section>
 	);
-}
+};
+
+export default UsersList;
