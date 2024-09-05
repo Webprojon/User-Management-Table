@@ -50,7 +50,7 @@ const UsersList: React.FC = () => {
 						<div className="relative" key={field}>
 							<BsSearch className="absolute left-3 top-1/2 -translate-y-1/2" />
 							<input
-								type={field === "phone" ? "number" : "text"}
+								type={field === "phone" ? "tel" : "text"}
 								name={field}
 								autoComplete="off"
 								placeholder={`Search by ${field}`}
